@@ -3,7 +3,8 @@ from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import NoResultFound
 from fastapi.middleware.cors import CORSMiddleware
-from app.socket_api import socket_app
+import socketio
+from app.socket_api import sio
 
 from . import models, schemas, database, auth
 import os
@@ -207,4 +208,5 @@ def get_user_by_id(
     return user
 
 
-app.mount("/", socket_app)
+fastapi_app = app
+app = socketio.ASGIApp(sio, other_asgi_app=fastapi_app)

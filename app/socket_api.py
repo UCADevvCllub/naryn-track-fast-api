@@ -64,7 +64,8 @@ async def connect(sid, env):
         token = query_params["token"][0]
         driver, isError = await get_current_driver(token, sid)
         if isError:
-            return
+            # refuse the connection cleanly
+            return False
         sids[sid] = {"is_driver": True, "user": driver}
     else:
         sids[sid] = {"is_driver": False}

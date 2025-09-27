@@ -12,7 +12,7 @@ services:
       - .env
     depends_on:
       - db
-    command: ["sh", "-c", "sh /app/migrate.sh && uvicorn app.main:app --host 0.0.0.0 --port 8100"]
+    command: ["sh", "-c", "sh /app/migrate.sh && uvicorn app.main:app --host 0.0.0.0 --port 8100 --ws wsproto"]
     networks:
       - default  
   db:
